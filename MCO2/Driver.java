@@ -1,4 +1,3 @@
-package MCO2;
 
 /**
  * This Driver Class contains the main method of the Java Program.
@@ -11,9 +10,9 @@ public class Driver {
      * @param args arguments supplied by the CLI
      */
     public static void main(String[] args){
-        ReservationGUI GUI = new ReservationGUI();
+        ReservationGUIView GUI = new ReservationGUIView();
         ReservationSystem reservation = new ReservationSystem();
 
-        InputDisplay Input = new InputDisplay(GUI, reservation);
+        InputController Input = new InputController(GUI, reservation);
     }
 }

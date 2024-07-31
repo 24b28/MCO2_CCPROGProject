@@ -1,4 +1,4 @@
-package MCO2;
+
 /**
  * The Time class refers to the timeframe a given reservation.
  * It has the check-in and check-out dates for each of the reservations.

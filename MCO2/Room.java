@@ -1,7 +1,6 @@
-package MCO2;
 
 /**
- * The room class refers to the rooms in a hotel.
+ * The abstract room class refers to the rooms in a hotel.
  * It has a name and a price.
  * The rooms can also be reserved/booked.
  */
@@ -15,6 +14,7 @@ public abstract class Room {
      *
      * @param name the unique name of the room
      * @param bPrice the base price of the room
+     * @param type the type of the room
      */
     public Room(int name, double bPrice, int type){
         this.name = name;
@@ -49,6 +49,11 @@ public abstract class Room {
         this.bPrice = bPrice;
     }
 
+    /**
+     * Sets the base price of the room.
+     *
+     * @return the type/id of the room
+     */
     public int getId(){
         return this.type;
     }

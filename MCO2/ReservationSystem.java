@@ -1,4 +1,3 @@
-package MCO2;
 
 import java.util.ArrayList;
 
@@ -70,6 +69,7 @@ public class ReservationSystem {
      * Displays the High-Level Information of the selected Hotel.
      *
      * @param index the index of the selected hotel
+     * @return the text to be displayed.
      */
     public String viewHighLevel(int index){
         Hotel hotel = this.hotelList.get(index);
@@ -87,11 +87,16 @@ public class ReservationSystem {
 
     }
 
+    public int HotelNumRoom(int index){
+        return this.hotelList.get(index).numRoom();
+    }
+
     /**
      * Display number of available rooms and number of booked rooms.
      *
      * @param index the index of the selected hotel
      * @param date the date to identify rooms booked on that date
+     * @return the text to be displayed.
      */
     public String AvailableSRooms(int index, int date){
         Hotel hotel = this.hotelList.get(index);
@@ -100,9 +105,9 @@ public class ReservationSystem {
         text+=("Rooms on: " + date + "\n");
         text+=("=======\n");
         text+=("Available Rooms:        Booked Rooms: \n");
-        String text1 ="Standard Rooms: " + (hotel.numSroom() - hotel.numSBooked(date));
-        String text2 ="Deluxe Rooms: " + (hotel.numDroom() - hotel.numSBooked(date));
-        String text3 ="Executive Rooms: " + (hotel.numEroom() - hotel.numSBooked(date));
+        String text1 ="Standard Rooms: " + (hotel.numSroom() - hotel.numSSbooked(date));
+        String text2 ="Deluxe Rooms: " + (hotel.numDroom() - hotel.numSDbooked(date));
+        String text3 ="Executive Rooms: " + (hotel.numEroom() - hotel.numSEbooked(date));
         text+=text1;
         for (int i=0;i<21-text1.length();i++)
             text+=(" ");
@@ -124,34 +129,39 @@ public class ReservationSystem {
      *
      * @param index the index of the selected hotel
      * @param i the index of the selected reservation
+     * @return the text to be displayed.
      */
-    public void ReservationInfo(int index, int i){
-        System.out.println("=======");
-        System.out.println("Reservation Guest Name: " + this.hotelList.get(index).getReservationList().get(i).getName());
-        System.out.println("=======\n");
-        System.out.println("Room Name: " + this.hotelList.get(index).getReservationList().get(i).getRoom().getName());
+    public String ReservationInfo(int index, int i){
+        String text = "";
+
+        text+=("=======\n");
+        text+=("Reservation Guest Name: " + this.hotelList.get(index).getReservationList().get(i).getName() + "\n");
+        text+=("=======\n");
+        text+=("Room Name: " + this.hotelList.get(index).getReservationList().get(i).getRoom().getName() + "\n");
         if (this.hotelList.get(index).getReservationList().get(i).getRoom().getId()==1)
-            System.out.println("Room Type: Standard");
+            text+=("Room Type: Standard\n");
         else if (this.hotelList.get(index).getReservationList().get(i).getRoom().getId()==2)
-            System.out.println("Room Type: Deluxe");
+            text+=("Room Type: Deluxe\n");
         else if (this.hotelList.get(index).getReservationList().get(i).getRoom().getId()==3)
-            System.out.println("Room Type: Executive");
+            text+=("Room Type: Executive\n");
         if (this.hotelList.get(index).getReservationList().get(i).getDiscount()==1){
-            System.out.println("Discount: 10%");
+            text+=("Discount: 10%\n");
         }
         else if (this.hotelList.get(index).getReservationList().get(i).getDiscount()==2){
-            System.out.println("Discount: 1 day off");
+            text+=("Discount: 1 day off\n");
         }
         else if (this.hotelList.get(index).getReservationList().get(i).getDiscount()==3){
-            System.out.println("Discount: 7&");
+            text+=("Discount: 7&\n");
         }
-        System.out.println("Check-in Date: " + this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn());
-        System.out.println("Check-out Date: " + this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut());
-        System.out.println("Total Price of Booking: " + this.hotelList.get(index).getReservationList().get(i).getTotalCost());
-        System.out.println("Price Breakdown:");
-        System.out.println("Days Reserved: " + (this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut()-this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn()));
-        System.out.println("Base Price: " + this.hotelList.get(index).getReservationList().get(i).getRoom().getbPrice());
-        System.out.println(this.hotelList.get(index).getReservationList().get(i).getRoom().getbPrice() + "*" + (this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut()-this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn()) + "=" + this.hotelList.get(index).getReservationList().get(i).getTotalCost());
+        text+=("Check-in Date: " + this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn());
+        text+=("    Check-out Date: " + this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut() + "\n");
+        text+=("Total Price of Booking: " + this.hotelList.get(index).getReservationList().get(i).getTotalCost() + "\n");
+        text+=("Price Breakdown:\n");
+        text+=("Days Reserved: " + (this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut()-this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn()) + "\n");
+        text+=("Base Price: " + this.hotelList.get(index).getReservationList().get(i).getRoom().getbPrice() + "\n");
+        text+=(this.hotelList.get(index).getReservationList().get(i).getRoom().getbPrice() + "*" + (this.hotelList.get(index).getReservationList().get(i).getTime().getCheckOut()-this.hotelList.get(index).getReservationList().get(i).getTime().getCheckIn()) + "=" + this.hotelList.get(index).getReservationList().get(i).getTotalCost() + "\n");
+
+        return text;
     }
 
     /**
@@ -159,6 +169,7 @@ public class ReservationSystem {
      *
      * @param index the index of the selected hotel
      * @param name the name of the room
+     * @return the text to be displayed.
      */
     public String RoomInfo(int index, int name){
         String text = "";
@@ -206,6 +217,7 @@ public class ReservationSystem {
      *
      * @param index the index of the selected hotel
      * @param name the room to show the availability.
+     * @return the String Array containing room availability.
      */
     public String[] RoomAvailability(int index, int name){
 
@@ -243,7 +255,7 @@ public class ReservationSystem {
         for(Reservation rs : this.hotelList.get(index).getReservationList()){
             if (rs.getRoom().getName()==room.getName()){
                 for(int i = 1;i<=31;i++){
-                    if (i<rs.getTime().getCheckIn() || i>=rs.getTime().getCheckOut()) {
+                    if (i>=rs.getTime().getCheckIn() && i<rs.getTime().getCheckOut()) {
                         Booked[i-1]="Not Available";
                     }
                 }
@@ -357,6 +369,7 @@ public class ReservationSystem {
      * Displays the rooms that are removable.
      *
      * @param index the index of the selected hotel
+     * @return the Integer Array of the names of the removable rooms
      */
     public Integer[] showRemovableRoom(int index) {
         boolean result = true;
@@ -422,6 +435,7 @@ public class ReservationSystem {
      *
      * @param index the index of the selected hotel
      * @param name the name of the room to be removed
+     * @return the boolean value to determine if hotel room was removed
      */
     public boolean removeHotelRoom(int index, int name){
         boolean result = false;
@@ -458,11 +472,15 @@ public class ReservationSystem {
      *
      * @param index the index of the selected hotel
      * @param bPrice the base new base price
+     * @return the boolean value if the hotel price was changed
      */
-    public void updateHotelPrice(int index, double bPrice){
+    public boolean updateHotelPrice(int index, double bPrice){
+        boolean result = false;
         if (this.hotelList.get(index).numBooked()==0) {
             this.hotelList.get(index).changePrice(bPrice);
+            result = true;
         }
+        return result;
     }
 
     /**
@@ -473,7 +491,7 @@ public class ReservationSystem {
      */
     public void removeHotelRoomReservation(int index, int in){
         if (this.hotelList.get(index).numBooked()!=0) {
-            this.hotelList.get(index).removeReservation(this.hotelList.get(index).getReservationList().get(in-1));
+            this.hotelList.get(index).removeReservation(this.hotelList.get(index).getReservationList().get(in));
         }
     }
 
@@ -483,7 +501,7 @@ public class ReservationSystem {
      * @param index the index of the hotel to be removed
      */
     public void removeHotel(int index){
-        this.hotelList.remove(this.hotelList.get(index-1));
+        this.hotelList.remove(this.hotelList.get(index));
     }
 
     /**
@@ -499,30 +517,37 @@ public class ReservationSystem {
      * Adds a booking/reservation to the selected Hotel
      *
      * @param index the index of the selected hotel
-     * @param time the time of the new booking
+     * @param checkIn the check-in time of the new booking
+     * @param checkOut the check-out time of the new booking
      * @param name the name of the new booking
+     * @param type type of Room
+     * @return the boolean value to determine whether booking was added or not.
      */
-    public void addBooking(int index, Time time, String name, int type){
-        boolean result = true;
+    public boolean addBooking(int index, int checkIn, int checkOut, String name, int type){
+        boolean result = false;
+        boolean rev = true;
         int count = 0;
+        Time time = new Time(checkIn, checkOut);
 
         if (time.getCheckIn()<31 && time.getCheckIn()>=1 && time.getCheckOut()>1 && time.getCheckOut()<=31 && time.getCheckOut()>time.getCheckIn()) {
             if (type==1) {
                 for (Room r : this.hotelList.get(index).getSroomList()) {
                     for (Reservation rs : this.hotelList.get(index).getReservationList()) {
                         if (r.getName() == rs.getRoom().getName() && count == 0) {
-                            result = false;
+                            rev = false;
                             if ((time.getCheckIn() < rs.getTime().getCheckIn() && time.getCheckOut() < rs.getTime().getCheckIn()) || time.getCheckIn() >= rs.getTime().getCheckOut()) {
                                 this.hotelList.get(index).addSreservation(name, time, r);
+                                result = true;
                                 count = 1;
                             }
                         } else {
-                            result = true;
+                            rev = true;
                         }
                         break;
                     }
-                    if (result && count == 0) {
+                    if (rev && count == 0) {
                         this.hotelList.get(index).addSreservation(name, time, r);
+                        result = true;
                         break;
                     }
                 }
@@ -531,18 +556,20 @@ public class ReservationSystem {
                 for (Room r : this.hotelList.get(index).getDroomList()) {
                     for (Reservation rs : this.hotelList.get(index).getReservationList()) {
                         if (r.getName() == rs.getRoom().getName() && count == 0) {
-                            result = false;
+                            rev = false;
                             if ((time.getCheckIn() < rs.getTime().getCheckIn() && time.getCheckOut() < rs.getTime().getCheckIn()) || time.getCheckIn() >= rs.getTime().getCheckOut()) {
                                 this.hotelList.get(index).addDreservation(name, time, r);
+                                result = true;
                                 count = 1;
                             }
                         } else {
-                            result = true;
+                            rev = true;
                         }
                         break;
                     }
-                    if (result && count == 0) {
+                    if (rev && count == 0) {
                         this.hotelList.get(index).addDreservation(name, time, r);
+                        result = true;
                         break;
                     }
                 }
@@ -551,30 +578,50 @@ public class ReservationSystem {
                 for (Room r : this.hotelList.get(index).getEroomList()) {
                     for (Reservation rs : this.hotelList.get(index).getReservationList()) {
                         if (r.getName() == rs.getRoom().getName() && count == 0) {
-                            result = false;
+                            rev = false;
                             if ((time.getCheckIn() < rs.getTime().getCheckIn() && time.getCheckOut() < rs.getTime().getCheckIn()) || time.getCheckIn() >= rs.getTime().getCheckOut()) {
                                 this.hotelList.get(index).addEreservation(name, time, r);
+                                result = true;
                                 count = 1;
                             }
                         } else {
-                            result = true;
+                            rev = true;
                         }
                         break;
                     }
-                    if (result && count == 0) {
+                    if (rev && count == 0) {
                         this.hotelList.get(index).addEreservation(name, time, r);
+                        result = true;
                         break;
                     }
                 }
             }
         }
+
+        return result;
     }
-    public void addDiscount(int index, String DiscountCode){
+
+    /**
+     * Adds a discount to the reservation made.
+     *
+     * @param index the index of the selected hotel
+     * @param DiscountCode the string value containing the discount code
+     * @return the boolean value to determine whether discount was added or not.
+     */
+    public boolean addDiscount(int index, String DiscountCode){
         int LastElem=this.hotelList.get(index).getReservationList().size()-1;
 
-        this.hotelList.get(index).getReservationList().get(LastElem).setDiscount(DiscountCode);
+        boolean result = this.hotelList.get(index).getReservationList().get(LastElem).setDiscount(DiscountCode);
+
+        return result;
     }
 
+    /**
+     * For getting all room names to display in the GUI.
+     *
+     * @param index the index of the selected hotel
+     * @return the Integer Array that contains all the room names
+     */
     public Integer[] getRoomNames(int index){
         int num1 = this.hotelList.get(index).getEroomList().size();
         int num2 = this.hotelList.get(index).getDroomList().size();
@@ -597,14 +644,33 @@ public class ReservationSystem {
         return names;
     }
 
+    /**
+     * For getting all reservation names to display in the GUI.
+     *
+     * @param index the index of the selected hotel
+     * @return the String Array that contains all the reservation names
+     */
     public String[] getReservationNames(int index){
         int num = hotelList.get(index).getReservationList().size();
         String[] names = new String[num];
         int i = 0;
         for (Reservation rs : hotelList.get(index).getReservationList()){
             names[i] = rs.getName();
+            i++;
         }
 
         return names;
+    }
+
+    /**
+     * For calling the method for the date price modifier in the hotel class.
+     *
+     * @param index the index of the selected hotel
+     * @param date the selected date
+     * @param index the inputted percent to modify the price of the selected date
+     * @return the String Array that contains all the reservation names
+     */
+    public boolean Dpm(int index, int date, double percent){
+        return hotelList.get(index).DatePriceModifier(date,percent);
     }
 }
